@@ -1,0 +1,72 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" [class]="contenido">
+    <div class="login-register" style="background-image:url(../assets/images/background/backgraund-applawyer.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
+                <form ngNativeValidate #f="ngForm" class="form-horizontal form-material floating-labels m-t-40" (ngSubmit)="ingresar(f)">
+                    <a routerLink="../inicio" class="text-center db"><img src="../assets/images/logo-applawyer2.PNG" width="50%" height="50%" /></a>
+                    <h3 class="box-title m-b-20"><img src=""></h3>
+
+                    <div class="form-group">
+                        <input [ngModel]="email" name="email" type="email" class="form-control" placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input [ngModel]="password" name="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-info pull-left p-t-0">
+                                <input [(ngModel)]="recuerdame" name="recuerdame" id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                                <label for="checkbox-signup"> Recuerdame </label>
+                            </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"> ¿Olvidaste tu Contraseña?</a> </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="col-xs-12 p-b-20">
+                            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">LOGIN</button>
+                        </div>
+                    </div>
+
+                    <!-- INICIO DE SESSION CON GOOGLE Y FACEBOOK
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                            <div class="social">
+                                <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                                <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    -->
+
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            ¿No tienes una cuenta? <a routerLink="/register" class="text-info m-l-5"><b>Registrate</b></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
+<div id="preloader_1" *ngIf="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <p class="texto-cargando"><strong>Cargando...</strong></p>
+</div>
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
