@@ -1,0 +1,109 @@
+<div align="left">
+    <a routerLink="/misprocesos" class="btn btn-rounded btn-outline-info">Atras</a>
+</div>
+<div class="card">
+    <div class="card-body p-b-0" *ngFor="let data of dataProceso" align="center">
+        <h4 class="card-title">{{data.radicado}}</h4>
+        <h6 class="card-subtitle">{{data.ciudad}} - {{data.juzgado}}</h6>
+        <h4 class="card-title">{{data.demandante | uppercase}} - {{data.demandado | uppercase}}</h4>
+        <h6 class="card-subtitle">{{data.fecha | date:'mediumDate' }}</h6>
+    </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs customtab" role="tablist">
+        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Actuaciones</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Alertas</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages2" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Adjuntos</span></a> </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!--Actuaciones-->
+        <div class="tab-pane active" id="home2" role="tabpanel">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table full-color-table full-muted-table hover-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Actuación</th>
+                                <th>Anotación</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let datos of proceso; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{datos.actuacion | uppercase }}</td>
+                                <td>{{datos.anotacion}}</td>
+                                <td>{{datos.fecha | date:'mediumDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--Alertas-->
+        <div class="tab-pane  p-20" id="profile2" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table full-color-table full-muted-table hover-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let alerta of alertaService.alertas; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{alerta.descripcion | uppercase }}</td>
+                            <td>{{alerta.fecha | date:'mediumDate'}}</td>
+                            <td>{{alerta.hora}}</td>
+                            <td>
+                                <span tooltip="Editar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline"><i class=ti-pencil-alt></i></a></span>
+                                <span tooltip="Eliminar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline"><i class="ti-trash"></i></a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--Adjuntos-->
+        <div class="tab-pane p-20" id="messages2" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table full-color-table full-muted-table hover-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Descricpión</th>
+                            <th>Archivo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let adjunto of adjuntoService.adjuntos; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{adjunto.descripcion | uppercase }}</td>
+                            <img src="{{adjunto.archivo}}" imageViewer>
+                            <td>{{adjunto.created_at | date:'mediumDate'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="preloader_1" *ngIf="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <p class="texto-cargando"><strong>Cargando...</strong></p>
+</div>

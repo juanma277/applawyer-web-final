@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 declare function init_plugins();
+declare function init_plugin_footable();
 
 @Component({
   selector: 'app-pages',
@@ -13,6 +14,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
+    init_plugin_footable();
   }
 
 }

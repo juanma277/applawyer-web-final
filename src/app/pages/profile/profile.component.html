@@ -1,0 +1,219 @@
+<div class="col-lg-4 col-xlg-3 col-md-5">
+    <div class="card" [class]="contenido">
+        <div class="card-body">
+            <div class="m-t-30" align="center"> <img [src]="usuario.imagen | imagenUser" class="img-circle" width="150" />
+                <h4 class="card-title m-t-10">{{usuario.nombre}}</h4>
+                <h6 class="card-subtitle">{{usuario.profesion}}</h6>
+            </div>
+        </div>
+        <div>
+            <hr> </div>
+        <div class="card-body"> <small class="text-muted">Email </small>
+            <h6>{{usuario.email}}</h6> <small class="text-muted p-t-30 db">Teléfono</small>
+            <h6>{{usuario.telefono}}</h6>
+            <span *ngIf="!usuario.telefono" class="badge badge-pill badge-danger">No Reporta</span> <small class="text-muted p-t-30 db">Dirección</small>
+            <h6>{{usuario.direccion}}</h6>
+            <span *ngIf="!usuario.direccion" class="badge badge-pill badge-danger">No Reporta</span>
+        </div>
+    </div>
+</div>
+<!-- Column -->
+<!-- Column -->
+<div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs profile-tab" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Perfil</a> </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Datos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#password" role="tab">Contraseña</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#imagen" role="tab">Imagen</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="profile" role="tabpanel">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Nombre Completo</strong>
+                            <br>
+                            <p class="text-muted">{{usuario.nombre}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Teléfono</strong>
+                            <br>
+                            <p class="text-muted">{{usuario.telefono}}</p>
+                            <span *ngIf="!usuario.telefono" class="badge badge-pill badge-danger">No Reporta</span>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                            <br>
+                            <p class="text-muted">{{usuario.email}}</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6"> <strong>Dirección</strong>
+                            <br>
+                            <p class="text-muted">{{usuario.direccion}}</p>
+                            <span *ngIf="!usuario.direccion" class="badge badge-pill badge-danger">No Reporta</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="m-t-30">{{usuario.descripcion}}</p>
+                    <span *ngIf="!usuario.descripcion" class="badge badge-pill badge-info">Dirigete a Datos para ingresar una descripción de Perfil. </span>
+
+                    <h4 class="font-medium m-t-30">Procesos:
+                        <strong *ngIf="procesoService.procesosUser">{{procesoService.procesosUser.length}}</strong>
+                    </h4>
+                    <hr>
+                    <div class="card-body">
+                        <h4 class="card-title">Procesos Por Estado</h4>
+                        <div class="table-responsive">
+                            <table class="table full-color-table full-inverse-table hover-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Estado</th>
+                                        <th>Cantidad</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let estado of procesoService.estadoProcesos; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{estado.estado}}</td>
+                                        <td>{{estado.cantidad}}</td>
+                                        <td>{{estado.cantidad / procesoService.procesosUser.length | percent }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="settings" role="tabpanel">
+                <div class="card-body">
+                    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizarDatos()" class="form-horizontal form-material" [class]="contenido">
+                        <div class="form-group">
+                            <label class="col-md-12">Nombre Completo</label>
+                            <div class="col-md-12">
+                                <input formControlName="nombre" name="nombre" type="text" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Email</label>
+                            <div class="col-md-12">
+                                <input formControlName="email" name="email" type="email" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Dirección</label>
+                            <div class="col-md-12">
+                                <input formControlName="direccion" name="direccion" type="text" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Teléfono</label>
+                            <div class="col-md-12">
+                                <input formControlName="telefono" name="telefono" type="text" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Profesión</label>
+                            <div class="col-md-12">
+                                <input formControlName="profesion" name="profesion" type="text" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Descripcion</label>
+                            <div class="col-md-12">
+                                <textarea formControlName="descripcion" name="descripcion" rows="5" required class="form-control form-control-line"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="demo-switch-title">Permitir Notificaciones <span tooltip="Al desactivar, no recibiras notificaciones en tu móvil" placement="top"><a class="btn btn-secondary btn-outline">?</a></span></div>
+
+                            <div class="switch">
+                                <label>
+                                  <input formControlName="notificaciones" name="notificaciones" type="checkbox"><span class="lever switch-col-teal"></span></label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group" align="center">
+                            <div class="col-sm-12">
+                                <button class="btn btn-success" type="submit">ACTUALIZAR DATOS</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane" id="password" role="tabpanel">
+                <div class="card-body">
+                    <form ngNativeValidate [formGroup]="forma2" (ngSubmit)="actualizarPassword()" class="form-horizontal form-material" [class]="contenido">
+                        <div class="form-group">
+                            <label class="col-md-12">Nueva Contraseña</label>
+                            <div class="col-md-12">
+                                <input formControlName="password" name="password" type="password" required class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Confirmar Contraseña</label>
+                            <div class="col-md-12">
+                                <input formControlName="password2" name="password2" type="password" required class="form-control form-control-line">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <span *ngIf="forma2.errors?.sonIguales && !forma2.pristine" class="badge badge-pill badge-danger">Las ontraseñas deben ser iguales.</span>
+                        </div>
+                        <br>
+                        <div class="form-group" align="center">
+                            <div class="col-sm-12">
+                                <button class="btn btn-success" type="submit">ACTUALIZAR CONTRASEÑA</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane" id="imagen" role="tabpanel">
+                <br>
+
+                <div align="center">
+                    <img *ngIf="imagenTemporal" [src]="imagenTemporal" width="150px" [class]="contenido">
+                </div>
+
+                <div class="card-body" [class]="contenido">
+                    <form ngNativeValidate [formGroup]="forma3" (ngSubmit)="actualizarImagen()" class="form-horizontal form-material" [class]="contenido">
+
+                        <div class="form-group" [class]="contenido">
+                            <div class="col-md-4">
+                                <label for="input-file-now">Imagen de usuario</label>
+                                <input type="file" id="avatar" (change)="seleccionImagen($event)" #fileInput>
+                            </div>
+                        </div>
+
+
+
+                        <br>
+                        <div class="form-group" align="left">
+                            <div class="col-sm-12">
+                                <button class="btn btn-success" [disabled]="!imagenTemporal" type="submit">ACTUALIZAR IMAGEN</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="preloader_1" *ngIf="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <p class="texto-cargando"><strong>Cargando...</strong></p>
+</div>

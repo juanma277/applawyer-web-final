@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SettingsService } from './services/service.index';
+import { SettingsService, ProcesoService } from './services/service.index';
+import { UsuarioService } from './services/usario/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,7 @@ import { SettingsService } from './services/service.index';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor( public ajustesService: SettingsService){}
+  constructor( public ajustesService: SettingsService, public usuarioService: UsuarioService, public procesoService:ProcesoService){
+    //this.procesoService.procesosPorEstado(this.usuarioService.usuario.id).subscribe();
+  }
 }

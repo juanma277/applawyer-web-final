@@ -92,10 +92,13 @@ export class RegisterComponent implements OnInit {
       null,
       null,
       null,
+      null,
+      null,
+      null,
+      null,
       this.forma.value.notificaciones,
-      this.forma.value.condiciones,
-      null
-    );
+      this.forma.value.condiciones
+     );
 
     this.usuarioService.crearUsuario(usuario)
         .subscribe((resp:any)=>{

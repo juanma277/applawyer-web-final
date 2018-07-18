@@ -1,6 +1,12 @@
+export { AlertaService } from './alerta/alerta.service';
+export { AdjuntoService } from './adjunto/adjunto.service';
+export { CiudadService } from './ciudad/ciudad.service';
+export { JuzgadoService } from './juzgado/juzgado.service';
+export { TipoProcesoService } from './tipo-proceso/tipo-proceso.service';
+export { ProcesoService } from './proceso/proceso.service';
+export { SubirArchivoService } from './subir-archivo/subir-archivo.service';
+export { LoginGuardGuard } from './guards/login-guard.guard';
 export { UsuarioService } from './usario/usuario.service';
 export { SettingsService } from "./settings/settings.service";
 export { SharedService } from "./shared/shared.service";
 export { SidebarService } from "./shared/sidebar.service";
-
-

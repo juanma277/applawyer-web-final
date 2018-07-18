@@ -13,12 +13,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //SERVICIOS
 import { ServiceModule } from './services/service.module';
 
-
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
-
 
 @NgModule({
   declarations: [
