@@ -3,6 +3,8 @@ import { UsuarioService, ProcesoService } from '../../services/service.index';
 import { Usuario } from '../../models/usuario.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -86,7 +88,11 @@ export class ProfileComponent implements OnInit {
     if(this.forma.invalid){
       this.loader = false;
       this.contenido = "";
-      swal('Error', 'Falta ingresar datos requeridos', 'error');
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'Falta ingresar datos requeridos!'
+      });
       return;
     }
 
@@ -119,7 +125,11 @@ export class ProfileComponent implements OnInit {
     this.contenido = "loading";
 
     if(this.forma2.invalid){
-      swal('Error', 'Las contraseñas no son iguales', 'warning');
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'Las contraseñas no son iguales!'
+      });
       this.loader = false;
       this.contenido = "";
       return;
@@ -127,12 +137,21 @@ export class ProfileComponent implements OnInit {
 
     this.usuarioService.actualizarPassword(this.usuario.id, this.forma2.value.password).subscribe((resp:any)=>{
       if(resp.error){
-        swal('Error', 'Ha ocurrido un error, por favor intentalo nuevamente!', 'error');
+        swal({
+          type: 'error',
+          title: 'Error',
+          text: 'Ha ocurrido un error, por favor intentalo nuevamente!'
+        });
         this.loader = false;
         this.contenido = "";
         return;      
       }
-      swal('Correcto', 'Correcto Contraseña Actualizada', 'success');
+      swal({
+        type: 'success',
+        title: 'Correcto',
+        text: 'Correcto Contraseña Actualizada!'
+      });
+      
       this.loader = false;
       this.contenido = "";
       this.forma2.setValue({
@@ -142,7 +161,11 @@ export class ProfileComponent implements OnInit {
 
       return;
     }, error =>{
-      swal('Error', 'Ha ocurrido un error, por favor intentalo nuevamente!', 'error');
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error, por favor intentalo nuevamente!'
+      });
         this.loader = false;
         this.contenido = "";
         return;       
@@ -154,7 +177,11 @@ export class ProfileComponent implements OnInit {
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       if(file.type.indexOf('image')<0){
-        swal('Error', 'El archivo seleccionado no es una imagen!', 'error');
+        swal({
+          type: 'error',
+          title: 'Error',
+          text: 'El archivo seleccionado no es una imagen!'
+        });
         return;
       }
       reader.readAsDataURL(file);
@@ -169,13 +196,16 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
   actualizarImagen(){
     this.loader = true;
     this.contenido = "loading";
 
     if(this.forma3.invalid){
-      swal('Error', 'No hay selección de imagen!', 'warning');
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'No hay selección de imagen!'
+      });
       this.loader = false;
       this.contenido = "";
       return;
@@ -186,13 +216,16 @@ export class ProfileComponent implements OnInit {
         this.contenido = "";
         this.imagenTemporal = null;
     }, error =>{
-      swal('Error', 'Ha ocurrido un error, por favor intentalo nuevamente!', 'error');
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error, por favor intentalo nuevamente!'
+      });
       this.loader = false;
       this.contenido = "";
       return;      
     });
   }
-
 
   cargarGraficaPie(){
     for(let y=0; y< this.procesoService.procesos.length; y++){

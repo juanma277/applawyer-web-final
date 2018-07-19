@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ImagenUserPipe } from './imagen-user.pipe';
 import { SplitPipe } from './split.pipe';
+import { ImagenAdjuntoPipe } from './imagen-adjunto.pipe';
 
 
 @NgModule({
@@ -8,11 +9,13 @@ import { SplitPipe } from './split.pipe';
   ],
   declarations: [
     ImagenUserPipe,
-    SplitPipe
+    SplitPipe,
+    ImagenAdjuntoPipe
   ], 
   exports:[
     ImagenUserPipe,
-    SplitPipe 
+    SplitPipe,
+    ImagenAdjuntoPipe
   ]
 })
 export class PipesModule { }

@@ -11,6 +11,9 @@ import { InformesComponent } from './informes/informes.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { ProcesoDetalleComponent } from './proceso-detalle/proceso-detalle.component';
 
+//SWEETALERT2
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+
 //PIPES - MODULOS
 import { PipesModule } from '../pipes/pipes.module';
 import { SharedModule } from '../shared/shared.module';
@@ -46,7 +49,8 @@ import { ChartsModule } from 'ng2-charts';
         FormsModule,
         ReactiveFormsModule,
         ChartsModule,
-        TooltipModule
+        TooltipModule,
+        SweetAlert2Module.forRoot()
     ]
 })
 

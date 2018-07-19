@@ -69,6 +69,11 @@ export class ProcesoService {
     return this.http.post(url, {'tipo_proceso': proceso.tipo_proceso_id, 'user':proceso.user_id, 'juzgado': proceso.juzgado_id, 'demandante':proceso.demandante, 'demandado':proceso.demandado, 'radicado':proceso.radicado, 'fecha':proceso.fecha});
   }
 
+  modificarEstado(proceso_id:string, estado:string){
+    let url = URL_SERVICIOS + '/processes/update/status/' + proceso_id;
+    return this.http.put(url, {'estado': estado});
+  }
+
   obtenerProceso(proceso_id:string){
     let url = URL_SERVICIOS + '/processes/getProcesses/'+proceso_id;
     return this.http.get(url).pipe(map((resp:any)=>{

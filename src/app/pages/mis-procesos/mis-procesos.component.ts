@@ -3,10 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProcesoService, UsuarioService, TipoProcesoService, JuzgadoService, CiudadService } from '../../services/service.index';
 import { Proceso } from '../../models/proceso.model';
 
-import * as _swal from 'sweetalert';
-import { SweetAlert } from 'sweetalert/typings/core';
-
-const swal: SweetAlert = _swal as any;
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -30,7 +27,11 @@ export class MisProcesosComponent implements OnInit {
    {
      this.tipoProcesoService.cargarTiposActivos().subscribe((resp:any)=>{
       if(resp.error){
-        swal("Advertencia", "No  existen tipos de procesos!", "warning");
+        swal({
+          type: 'warning',
+          title: 'Advertencia',
+          text: 'No  existen tipos de procesos!'
+        });
         return;
       }else{
         for(let i=0; i<resp.types.length ; i++){
@@ -41,7 +42,11 @@ export class MisProcesosComponent implements OnInit {
 
     this.ciudadService.cargarCiudadActivos().subscribe((resp:any)=>{
       if(resp.error){
-        swal("Advertencia", "No  existen Ciudades!", "warning");
+        swal({
+          type: 'warning',
+          title: 'Advertencia',
+          text: 'No  existen tipos de Ciudades!'
+        });
         return;
       }else{
         for(let i=0; i<resp.cities.length ; i++){
@@ -75,7 +80,11 @@ export class MisProcesosComponent implements OnInit {
     this.juzgados = [];
     this.juzgadoService.obtenerJuzgadoPorCiudad(id).subscribe((resp:any)=>{
       if(resp.error){
-        swal("Advertencia", "No  existen Juzgados!", "warning");
+        swal({
+          type: 'warning',
+          title: 'Advertencia',
+          text: 'No  existen Juzgados!'
+        });        
         this.loadingJuzgado = false;
         return;
       }else{
@@ -106,7 +115,11 @@ export class MisProcesosComponent implements OnInit {
     this.loader = true;
 
     if(this.forma.invalid){
-      swal("Error", "Existen campos obligatorios sin llenar!", "warning");
+      swal({
+        type: 'error',
+        title: 'Error',
+        text: 'Existen campos obligatorios sin llenar!'
+      }); 
       return;
     }
 
@@ -120,11 +133,19 @@ export class MisProcesosComponent implements OnInit {
 
     this.procesoService.crearProceso(this.proceso).subscribe((resp:any)=>{
       if(resp.error){
-        swal("Error", "Existe información duplicada o faltan datos!", "warning");
+        swal({
+          type: 'error',
+          title: 'Error',
+          text: 'Existe información duplicada o faltan datos!'
+        });
         this.loader = false;
         return;
       }else{
-        swal("Correcto", "Proceso creado!", "success");
+        swal({
+          type: 'success',
+          title: 'Correcto',
+          text: 'Proceso Creado!'
+        });
         this.loader = false;
         this.nuevo = false;
         this.contenido = "";
@@ -142,7 +163,11 @@ export class MisProcesosComponent implements OnInit {
         return;
       }
     }, error =>{
-        swal("Error", "Lo sentimos ha ocurrido un error, por favor intentalo nuevamente."+JSON.stringify(error), "warning");
+        swal({
+          type: 'error',
+          title: 'Error',
+          text: 'Lo sentimos ha ocurrido un error, por favor intentalo nuevamente.'
+        });
         this.loader = false;        
         return;
     });

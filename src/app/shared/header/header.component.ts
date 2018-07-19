@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/service.index';
 import { Usuario } from '../../models/usuario.model';
 
-import * as _swal from 'sweetalert';
-import { SweetAlert } from 'sweetalert/typings/core';
-const swal: SweetAlert = _swal as any;
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -24,16 +22,17 @@ export class HeaderComponent implements OnInit {
   logout(){
     swal({
       title: 'Salir',
-      text: '¿Seguro que deseas salir de la aplicación?',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((borrar) => {
-      if (borrar) {
+      text: "¿Seguro que deseas salir de la aplicación?",
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
         this.usuarioService.logout().subscribe();
-      } 
+      }
     });
   }
-
 }

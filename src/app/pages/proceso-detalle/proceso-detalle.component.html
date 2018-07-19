@@ -1,6 +1,27 @@
-<div align="left">
-    <a routerLink="/misprocesos" class="btn btn-rounded btn-outline-info">Atras</a>
+<div class="row show-grid" padding>
+    <div class="col-md-2" align="left">
+        <span tooltip="Mis Procesos" placement="top"><a routerLink="/misprocesos" class="btn btn-secondary font-18"><i class="ti-angle-double-left"></i></a></span>
+    </div>
+    <div class="col-md-10" align="right">
+        <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+            <span tooltip="Nueva Alerta" placement="top"><button type="button" (click)="nuevaAlerta()" class="btn btn-secondary font-18"><i class="ti-bell"></i></button></span>
+            <span tooltip="Nuevo Adjunto" placement="top"><button type="button" (click)="nuevoAdjunto()" class="btn btn-secondary font-18"><i class="ti-clip"></i></button></span>
+        </div>
+
+        <div class="btn-group m-b-10" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn m-b-10 btn-secondary font-18 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Estado </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                <div *ngFor="let data of dataProceso">
+                    <a class="dropdown-item pointer" (click)="cambiarEstado('ACTIVO')">Activo <i *ngIf="data.estado === 'ACTIVO'" class="ti-check"></i></a>
+                    <a class="dropdown-item pointer" (click)="cambiarEstado('INACTIVO')">Inactivo <i *ngIf="data.estado === 'INACTIVO'" class="ti-check"></i></a>
+                    <a class="dropdown-item pointer" (click)="cambiarEstado('TERMINADO')">Terminado <i *ngIf="data.estado === 'TERMINADO'" class="ti-check"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <div class="card">
     <div class="card-body p-b-0" *ngFor="let data of dataProceso" align="center">
         <h4 class="card-title">{{data.radicado}}</h4>
@@ -63,8 +84,8 @@
                             <td>{{alerta.fecha | date:'mediumDate'}}</td>
                             <td>{{alerta.hora}}</td>
                             <td>
-                                <span tooltip="Editar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline"><i class=ti-pencil-alt></i></a></span>
-                                <span tooltip="Eliminar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline"><i class="ti-trash"></i></a></span>
+                                <span tooltip="Editar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline" (click)="ventanaEditarAlerta(alerta.id)"><i class=ti-pencil-alt></i></a></span>
+                                <span tooltip="Eliminar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline" (click)="eliminarAlerta(alerta.id)"><i class="ti-trash"></i></a></span>
                             </td>
                         </tr>
                     </tbody>
@@ -82,20 +103,211 @@
                             <th>Descricpión</th>
                             <th>Archivo</th>
                             <th>Fecha</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let adjunto of adjuntoService.adjuntos; let i=index">
                             <td>{{i+1}}</td>
                             <td>{{adjunto.descripcion | uppercase }}</td>
-                            <img src="{{adjunto.archivo}}" imageViewer>
+                            <td>
+                                <div class="el-card-item">
+                                    <div class="el-card-avatar el-overlay-1">
+                                        <a class="image-popup-vertical-fit" [href]="adjunto.archivo | imagenAdjunto"> <img [src]="adjunto.archivo | imagenAdjunto" width="90px"></a>
+                                    </div>
+                                </div>
+                            </td>
+
                             <td>{{adjunto.created_at | date:'mediumDate'}}</td>
+                            <td>
+                                <span tooltip="Editar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline" (click)="ventanaEditarAdjunto(adjunto.id)"><i class=ti-pencil-alt></i></a></span>
+                                <span tooltip="Eliminar" placement="top"><a class="btn btn-sm btn-icon btn-pure btn-outline" (click)="eliminarAdjunto(adjunto.id)"><i class="ti-trash"></i></a></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
+
+<div class="nAlerta animated bounceInDown" *ngIf="nAlerta">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Nueva Alerta</h4>
+                <a class="close pointer" (click)="cerrarModal()">x</a>
+            </div>
+            <div class="modal-body">
+                <form ngNativeValidate [formGroup]="forma" (ngSubmit)="crearAlerta()" class="form-horizontal form-material">
+                    <div class="form-group">
+
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="descricpion">Descripción</label>
+                            <input formControlName="descricpion1" name="descricpion1" type="text" class="form-control" id="descricpion" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="fecha">Fecha</label>
+                            <input formControlName="fecha" name="fecha" class="form-control" type="date" id="fecha" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="hora">Hora</label>
+                            <input formControlName="hora" name="hora" class="form-control" type="time" id="hora" required>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect" data-dismiss="modal">Guardar</button>
+                        <button type="button" class="btn btn-default waves-effect" (click)="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="nAlerta animated bounceInDown" *ngIf="eAlerta">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Editar Alerta</h4>
+                <a class="close pointer" (click)="cerrarModal()">x</a>
+            </div>
+            <div class="modal-body">
+                <form ngNativeValidate [formGroup]="forma3" (ngSubmit)="editarAlerta()" class="form-horizontal form-material">
+                    <div class="form-group">
+
+                        <input formControlName="id" name="id" type="hidden" class="form-control" id="id" required>
+
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="descricpion">Descripción</label>
+                            <input formControlName="descricpion_edit" name="descricpion_edit" type="text" class="form-control" id="descricpion" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="fecha">Fecha</label>
+                            <input formControlName="fecha_edit" name="fecha_edit" class="form-control" type="date" id="fecha" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="hora">Hora</label>
+                            <input formControlName="hora_edit" name="hora_edit" class="form-control" type="time" id="hora" required>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect" data-dismiss="modal">Actualizar</button>
+                        <button type="button" class="btn btn-default waves-effect" (click)="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+<div class="nAdjunto animated bounceInDown" *ngIf="nAdjunto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Nuevo Adjunto</h4>
+                <a class="close pointer" (click)="cerrarModal()">x</a>
+            </div>
+            <div class="modal-body">
+                <form ngNativeValidate [formGroup]="forma2" (ngSubmit)="crearAdjunto()" class="form-horizontal form-material">
+                    <div class="form-group">
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="descricpion">Descripción</label>
+                            <input formControlName="descricpion2" name="descricpion2" type="text" class="form-control" id="descricpion" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="archivo">Archivo</label>
+                            <input type="file" id="avatar" (change)="seleccionImagen($event)" #fileInput>
+                        </div>
+
+
+                        <div align="center">
+                            <img *ngIf="imagenTemporal" [src]="imagenTemporal" width="150px">
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect" [disabled]="!imagenTemporal" data-dismiss="modal">Guardar</button>
+                        <button type="button" class="btn btn-default waves-effect" (click)="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="nAlerta animated bounceInDown" *ngIf="eAdjunto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Editar Adjunto</h4>
+                <a class="close pointer" (click)="cerrarModal()">x</a>
+            </div>
+            <div class="modal-body">
+                <form ngNativeValidate [formGroup]="forma4" (ngSubmit)="editarAdjunto()" class="form-horizontal form-material">
+                    <div class="form-group">
+
+                        <input formControlName="id_adjunto" name="id_adjunto" type="hidden" class="form-control" id="id_adjunto" required>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="descricpion">Descripción</label>
+                            <input formControlName="descricpion_edit_adjunto" name="descricpion_edit_adjunto" type="text" class="form-control" id="descricpion_edit_adjunto" required>
+                        </div>
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="archivo">Archivo</label>
+                            <input type="file" id="avatar" (change)="seleccionImagenEdit($event)" #fileInput>
+                        </div>
+
+                        <div align="center">
+                            <img [src]="imagenAdjunto | imagenAdjunto" width="90px" *ngIf="!imagenTemporal2">
+                        </div>
+
+                        <div align="center">
+                            <img *ngIf="imagenTemporal2" [src]="imagenTemporal2" width="150px">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect" data-dismiss="modal">Actualizar</button>
+                        <button type="button" class="btn btn-default waves-effect" (click)="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 
 

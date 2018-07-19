@@ -16,8 +16,7 @@ export class AdjuntoService {
   constructor(public http: HttpClient) { }
 
   crearAdjunto(adjunto: Adjunto){
-    
-    let url = URL_SERVICIOS + '/adjuntos/create';
+    let url = URL_SERVICIOS + '/adjuntos/create/web';
     return this.http.post(url, {'proceso_id': adjunto.proceso_id, 'descripcion': adjunto.descripcion, 'archivo': adjunto.archivo})
                 .pipe(map((resp:any)=>{
                   this.adjuntos.push(resp.adjunto);
@@ -51,7 +50,7 @@ export class AdjuntoService {
 
   actualizarAdjunto(adjunto: Adjunto){
     this.adjuntos =[];
-    let url = URL_SERVICIOS + '/adjuntos/update/'+adjunto.id;
+    let url = URL_SERVICIOS + '/adjuntos/update/web/'+adjunto.id;
     return this.http.put(url, {'proceso_id': adjunto.proceso_id, 'descripcion': adjunto.descripcion, 'archivo': adjunto.archivo})
                 .pipe(map((resp:any)=>{
                   for(let i=0; i<resp.adjuntos.length ; i++){
