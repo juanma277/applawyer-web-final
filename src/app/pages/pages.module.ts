@@ -25,6 +25,10 @@ import { PAGES_ROUTES } from './pages.routes';
 
 //NGCHARTS.JS
 import { ChartsModule } from 'ng2-charts';
+import { PorJuzgadoComponent } from './por-juzgado/por-juzgado.component';
+import { PorTipoComponent } from './por-tipo/por-tipo.component';
+import { PorEstadoComponent } from './por-estado/por-estado.component';
+import { PorCiudadComponent } from './por-ciudad/por-ciudad.component';
 
 @NgModule({
     declarations:[
@@ -36,6 +40,10 @@ import { ChartsModule } from 'ng2-charts';
         InformesComponent,
         NotificacionesComponent,
         ProcesoDetalleComponent,
+        PorJuzgadoComponent,
+        PorTipoComponent,
+        PorEstadoComponent,
+        PorCiudadComponent,
     ],
     exports: [
         DashboardComponent,

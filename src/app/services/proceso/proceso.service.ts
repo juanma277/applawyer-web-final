@@ -18,8 +18,6 @@ export class ProcesoService {
   cantidadProcesos:number = 0; 
   procesosUser = [];
   
-
-
   constructor(public http: HttpClient) {}
    
   cargarProcesos(user_id:string){
@@ -46,15 +44,6 @@ export class ProcesoService {
     }));
   }
   
-  procesosPorEstado(user_id:string){
-    this.procesos = [];
-    let url = URL_SERVICIOS +'/processes/porEstado/'+user_id;
-    return this.http.get(url).pipe(map((resp:any)=>{
-      this.procesos = resp.process;
-      return resp;
-    }));
-  }
-
   procesosPorUsuario(user_id){
     this.procesosUser = [];
     let url = URL_SERVICIOS +'/processes/getProcessesUser/'+user_id;
@@ -85,6 +74,58 @@ export class ProcesoService {
       }
     }, error =>{
       swal("Advertencia", "Ha ocurrido un error por favor intentalo nuevamente!", "warning");
+    }));
+  }
+
+  eliminarProceso(proceso_id:string, user_id:string){
+    this.procesos = [];
+    this.cantidadProcesos = 0;
+    let url = URL_SERVICIOS + '/processes/delete/' + proceso_id +'/' + user_id ;
+
+    return this.http.delete(url).pipe(map((resp:any)=>{
+      return resp;
+    }, error =>{
+      swal("Advertencia", "Ha ocurrido un error por favor intentalo nuevamente!", "warning");      
+    }));
+  }
+
+
+
+  //GRAFICAS
+  procesosPorJuzgado(user_id:string){
+    let url = URL_SERVICIOS +'/processes/porJuzgado/'+user_id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      return resp;
+    }));
+  }
+
+  procesosPorTipo(user_id:string){
+    let url = URL_SERVICIOS +'/processes/porTipo/'+user_id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      return resp;
+    }));
+  }
+
+  procesosPorCiudad(user_id:string){
+    let url = URL_SERVICIOS +'/processes/porCiudad/'+user_id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      return resp;
+    }));
+  }
+
+  procesosPorEstado(user_id:string){
+    this.procesos = [];
+    let url = URL_SERVICIOS +'/processes/porEstado/'+user_id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      this.procesos = resp.process;
+      return resp;
+    }));
+  }
+
+  procesosPorEstadoGrafica(user_id:string){
+    let url = URL_SERVICIOS +'/processes/porEstado/'+user_id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      return resp;
     }));
   }
 }

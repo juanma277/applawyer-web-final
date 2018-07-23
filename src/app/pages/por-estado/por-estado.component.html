@@ -1,0 +1,49 @@
+<div class="row show-grid" padding>
+    <div class="col-md-2" align="left">
+        <span tooltip="Informes" placement="top"><a routerLink="/informes" class="btn btn-secondary font-18"><i class="ti-angle-double-left"></i></a></span>
+    </div>
+    <div class="col-md-10" align="right">
+        <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+            <span tooltip="Grafica Pie" placement="top"><button type="button" (click)="cambiarGrafica(2)" class="btn btn-secondary font-18"><i class=" ti-pie-chart"></i></button></span>
+            <span tooltip="Grafica Barras" placement="top"><button type="button" (click)="cambiarGrafica(1)" class="btn btn-secondary font-18"><i class="ti-bar-chart"></i></button></span>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="opcion === 1">
+    <div style="display: block">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+    </div>
+</div>
+
+<div style="display: block" *ngIf="opcion === 2">
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+</div>
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table color-bordered-table inverse-bordered-table">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let proceso of procesos">
+                    <td>{{proceso.estado}}</td>
+                    <td>{{proceso.cantidad}}</td>
+                    <td>{{proceso.cantidad / total | percent}}</td>
+                </tr>
+                <tr>
+                    <th bgcolor="#E4EDF3"><strong>Total</strong></th>
+                    <th bgcolor="#E4EDF3"><strong>{{total}}</strong></th>
+                    <th bgcolor="#E4EDF3"><strong>{{1 | percent}}</strong></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

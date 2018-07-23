@@ -25,6 +25,8 @@ export class MisProcesosComponent implements OnInit {
 
   constructor(public procesoService: ProcesoService, public usuarioService: UsuarioService, public tipoProcesoService: TipoProcesoService, public juzgadoService: JuzgadoService, public ciudadService: CiudadService) 
    {
+     this.contenido ="loading";
+     this.loader =true;
      this.tipoProcesoService.cargarTiposActivos().subscribe((resp:any)=>{
       if(resp.error){
         swal({
@@ -32,11 +34,16 @@ export class MisProcesosComponent implements OnInit {
           title: 'Advertencia',
           text: 'No  existen tipos de procesos!'
         });
+          this.contenido = "";
+          this.loader =false;
+
         return;
       }else{
         for(let i=0; i<resp.types.length ; i++){
           this.tipos.push(resp.types[i]);
         }
+        this.contenido = "";
+        this.loader =false;
       }
      });
 
@@ -57,9 +64,7 @@ export class MisProcesosComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.procesoService.cargarProcesos(this.usuarioService.usuario.id).subscribe((resp:any)=>{
-
-    });
+    this.procesoService.cargarProcesos(this.usuarioService.usuario.id).subscribe();
     this.forma = new FormGroup({
       ciudad: new FormControl('', Validators.required),
       juzgado : new FormControl('', Validators.required),
@@ -108,7 +113,27 @@ export class MisProcesosComponent implements OnInit {
   }
 
   eliminar(proceso_id:string){
-    console.log(proceso_id);
+    swal({
+      title: 'Eliminar Proceso',
+      text: "¿Seguro que deseas eliminar el Proceso?",
+      type: 'error',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        this.contenido = "loading";
+        this.loader = true;
+        this.procesoService.eliminarProceso(proceso_id, this.usuarioService.usuario.id).subscribe((resp:any)=>{
+            this.procesoService.cargarProcesos(this.usuarioService.usuario.id).subscribe((resp:any)=>{
+              this.contenido = "";
+              this.loader = false;
+            });
+        });
+      }
+    })         
   }
 
   crearProceso(){

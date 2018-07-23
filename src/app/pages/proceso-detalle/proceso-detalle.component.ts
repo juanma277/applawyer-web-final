@@ -322,7 +322,7 @@ export class ProcesoDetalleComponent implements OnInit {
         title: 'Correcto',
         text: 'Adjunto Actualizado!'
       });
-      this.eAlerta = false;
+      this.eAdjunto = false;
       return;       
     }, error =>{
       swal({
@@ -349,6 +349,23 @@ export class ProcesoDetalleComponent implements OnInit {
         this.alertaService.eliminarAlerta(id, this.proceso_id).subscribe();
       }
     })
+  }
+
+  eliminarAdjunto(id:string){
+    swal({
+      title: 'Eliminar Adjunto',
+      text: "¿Seguro que deseas eliminar el adjunto?",
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        this.adjuntoService.eliminarAdjunto(id, this.proceso_id).subscribe();
+      }
+    })    
   }
 
   seleccionImagen(event){
