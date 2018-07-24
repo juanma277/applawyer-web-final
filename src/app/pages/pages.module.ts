@@ -10,6 +10,17 @@ import { MisProcesosComponent } from './mis-procesos/mis-procesos.component';
 import { InformesComponent } from './informes/informes.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { ProcesoDetalleComponent } from './proceso-detalle/proceso-detalle.component';
+import { PorJuzgadoComponent } from './por-juzgado/por-juzgado.component';
+import { PorTipoComponent } from './por-tipo/por-tipo.component';
+import { PorEstadoComponent } from './por-estado/por-estado.component';
+import { PorCiudadComponent } from './por-ciudad/por-ciudad.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { TiposProcesosComponent } from './tipos-procesos/tipos-procesos.component';
+import { CiudadesComponent } from './ciudades/ciudades.component';
+import { JuzgadosComponent } from './juzgados/juzgados.component';
+import { ProcesosComponent } from './procesos/procesos.component';
+import { ConfigNotificacionesComponent } from './config-notificaciones/config-notificaciones.component';
+
 
 //SWEETALERT2
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
@@ -25,10 +36,7 @@ import { PAGES_ROUTES } from './pages.routes';
 
 //NGCHARTS.JS
 import { ChartsModule } from 'ng2-charts';
-import { PorJuzgadoComponent } from './por-juzgado/por-juzgado.component';
-import { PorTipoComponent } from './por-tipo/por-tipo.component';
-import { PorEstadoComponent } from './por-estado/por-estado.component';
-import { PorCiudadComponent } from './por-ciudad/por-ciudad.component';
+
 
 @NgModule({
     declarations:[
@@ -44,6 +52,12 @@ import { PorCiudadComponent } from './por-ciudad/por-ciudad.component';
         PorTipoComponent,
         PorEstadoComponent,
         PorCiudadComponent,
+        UsuariosComponent,
+        TiposProcesosComponent,
+        CiudadesComponent,
+        JuzgadosComponent,
+        ProcesosComponent,
+        ConfigNotificacionesComponent,
     ],
     exports: [
         DashboardComponent,

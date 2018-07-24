@@ -1,8 +1,8 @@
 <div class="row show-grid">
     <div class="col-md-12" align="right">
-        <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-            <span tooltip="Excel" placement="top"><button type="button" (click)="nuevaAlerta()" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="20px" /></button></span>
-            <span tooltip="PDF" placement="top"><button type="button" (click)="nuevoAdjunto()" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="20px" /></button></span>
+        <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown" *ngIf="procesoService.cantidadProcesos > 0">
+            <span tooltip="Excel" placement="top"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="20px" /></a></span>
+            <span tooltip="PDF" placement="top"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="20px" /></a></span>
         </div>
     </div>
 </div>

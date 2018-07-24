@@ -12,6 +12,12 @@ import { PorJuzgadoComponent } from './por-juzgado/por-juzgado.component';
 import { PorTipoComponent } from './por-tipo/por-tipo.component';
 import { PorCiudadComponent } from './por-ciudad/por-ciudad.component';
 import { PorEstadoComponent } from './por-estado/por-estado.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { TiposProcesosComponent } from './tipos-procesos/tipos-procesos.component';
+import { CiudadesComponent } from './ciudades/ciudades.component';
+import { JuzgadosComponent } from './juzgados/juzgados.component';
+import { ProcesosComponent } from './procesos/procesos.component';
+import { ConfigNotificacionesComponent } from './config-notificaciones/config-notificaciones.component';
 
 const pagesRoutes: Routes = [
     {
@@ -30,6 +36,15 @@ const pagesRoutes: Routes = [
             {path: 'porCiudad', component: PorCiudadComponent, data: {titulo: 'Informe Por Ciudad'}},
             {path: 'porEstado', component: PorEstadoComponent, data: {titulo: 'Informe Por Estado'}},
             {path: 'notificaciones', component: NotificacionesComponent, data: {titulo: 'Notificaciones'}},
+
+            //MANTENIMIENTO
+            {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Mantenimiento de Usuarios'}},
+            {path: 'tipos', component: TiposProcesosComponent, data: {titulo: 'Mantenimiento de Tipos de Proceso'}},
+            {path: 'ciudades', component: CiudadesComponent, data: {titulo: 'Mantenimiento de Ciudades'}},
+            {path: 'juzgados', component: JuzgadosComponent, data: {titulo: 'Mantenimiento de Juzgados'}},
+            {path: 'procesos', component: ProcesosComponent, data: {titulo: 'Mantenimiento de Procesos'}},
+            {path: 'notifications', component: ConfigNotificacionesComponent, data: {titulo: 'Mantenimiento de Notificaciones'}},
+
             {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     }        

@@ -89,8 +89,7 @@ export class ProcesoService {
     }));
   }
 
-
-
+  
   //GRAFICAS
   procesosPorJuzgado(user_id:string){
     let url = URL_SERVICIOS +'/processes/porJuzgado/'+user_id;

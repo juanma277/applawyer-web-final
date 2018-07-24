@@ -6,6 +6,8 @@
         <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
             <span tooltip="Nueva Alerta" placement="top"><button type="button" (click)="nuevaAlerta()" class="btn btn-secondary font-18"><i class="ti-bell"></i></button></span>
             <span tooltip="Nuevo Adjunto" placement="top"><button type="button" (click)="nuevoAdjunto()" class="btn btn-secondary font-18"><i class="ti-clip"></i></button></span>
+            <span tooltip="Excel" placement="top" *ngIf="proceso.length > 0"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="20px" /></a></span>
+            <span tooltip="PDF" placement="top" *ngIf="proceso.length > 0"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="20px" /></a></span>
         </div>
 
         <div class="btn-group m-b-10" role="group">

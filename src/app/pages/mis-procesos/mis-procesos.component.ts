@@ -4,6 +4,7 @@ import { ProcesoService, UsuarioService, TipoProcesoService, JuzgadoService, Ciu
 import { Proceso } from '../../models/proceso.model';
 
 import swal from 'sweetalert2';
+import { URL_SERVICIOS } from '../../config/config';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class MisProcesosComponent implements OnInit {
   ciudades = [];
   proceso: Proceso = {};
   loader: boolean = false;
+  URL_DOWNLOAD_EXCEL:string;
+  URL_DOWNLOAD_PDF:string; 
+
 
 
   constructor(public procesoService: ProcesoService, public usuarioService: UsuarioService, public tipoProcesoService: TipoProcesoService, public juzgadoService: JuzgadoService, public ciudadService: CiudadService) 
@@ -74,6 +78,10 @@ export class MisProcesosComponent implements OnInit {
       radicado: new FormControl(null,  Validators.required),
       fecha: new FormControl(null, Validators.required)
     });
+
+    this.URL_DOWNLOAD_EXCEL = URL_SERVICIOS+"/download/XLS/procesos/"+this.usuarioService.usuario.id;
+    this.URL_DOWNLOAD_PDF = URL_SERVICIOS+"/download/PDF/procesos/"+this.usuarioService.usuario.id;
+
   }
 
   obtenerJuzgado(id: string){
@@ -138,6 +146,7 @@ export class MisProcesosComponent implements OnInit {
 
   crearProceso(){
     this.loader = true;
+    this.contenido = "loading";
 
     if(this.forma.invalid){
       swal({
@@ -196,8 +205,5 @@ export class MisProcesosComponent implements OnInit {
         this.loader = false;        
         return;
     });
-
-
   }
-
 }

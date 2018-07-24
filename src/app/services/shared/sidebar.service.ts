@@ -7,10 +7,15 @@ export class SidebarService {
 
   menu: any = [
     {
-      titulo: 'Prinicipal',
-      icono: 'mdi mdi-gauge',
+      titulo: 'Mantenimiento',
+      icono: 'mdi mdi-settings',
       submenu: [
-        {subtitulo: 'Dashboard', url: '/dashboard'}
+        {subtitulo: 'Usuarios', url: '/usuarios'},
+        {subtitulo: 'Tipos de Procesos', url: '/tipos'},
+        {subtitulo: 'Ciudades', url: '/ciudades'},
+        {subtitulo: 'Juzgados', url: '/juzgados'},
+        {subtitulo: 'Procesos', url: '/procesos'},
+        {subtitulo: 'Notificaciones', url: '/notifications'},
       ]
     }
   ];

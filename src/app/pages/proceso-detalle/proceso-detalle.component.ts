@@ -5,6 +5,7 @@ import { ProcesoService, AlertaService, AdjuntoService} from '../../services/ser
 import { Alerta } from '../../models/alerta.model';
 import swal from 'sweetalert2';
 import { Adjunto } from '../../models/adjunto.model';
+import { URL_SERVICIOS } from '../../config/config';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class ProcesoDetalleComponent implements OnInit {
   alerta: Alerta = {};
   adjunto: Adjunto = {};
   imagenAdjunto:string;
+  URL_DOWNLOAD_EXCEL:string;
+  URL_DOWNLOAD_PDF:string; 
 
   constructor(private route: ActivatedRoute, public procesoService: ProcesoService, public alertaService: AlertaService, public adjuntoService:AdjuntoService) {
     this.route.params.subscribe(params =>{
@@ -40,6 +43,8 @@ export class ProcesoDetalleComponent implements OnInit {
 
   ngOnInit() {
     this.cargarProceso();
+    this.URL_DOWNLOAD_PDF = URL_SERVICIOS+"/download/PDF/actuacionProceso/"+this.proceso_id;
+    this.URL_DOWNLOAD_EXCEL = URL_SERVICIOS+"/download/XLS/actuacionProceso/"+this.proceso_id;
     this.alertaService.cargarAlertaPorProceso(this.proceso_id).subscribe();
     this.adjuntoService.cargarAdjuntosPorProceso(this.proceso_id).subscribe();
 
