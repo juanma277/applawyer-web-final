@@ -1,17 +1,31 @@
 <div class="row show-grid">
+
     <div class="col-md-12" align="right">
         <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown" *ngIf="procesoService.cantidadProcesos > 0">
-            <span tooltip="Excel" placement="top"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="20px" /></a></span>
-            <span tooltip="PDF" placement="top"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="20px" /></a></span>
+            <span tooltip="Excel" placement="top"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="18px" /></a></span>&nbsp;
+            <span tooltip="PDF" placement="top"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="18px" /></a></span>
         </div>
     </div>
-</div>
 
-<!-- ============================================================== -->
-<!-- Start Page Content -->
-<!-- ============================================================== -->
-<div class="row">
     <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input type="text" class="form-control" placeholder="Buscar Proceso">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="cargando">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor ...</span>
+        </div>
+    </div>
+
+    <div class="col-12 divProcesos">
         <div class="card">
             <div class="card-body">
                 <div class="row m-t-40">
@@ -38,8 +52,8 @@
                     </div>
 
                 </div>
-                <div class="table-responsive" [class]="contenido">
-                    <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                <div class="table-responsive">
+                    <table class="table full-color-table full-muted-table hover-table">
                         <thead>
                             <tr>
                                 <th>Radicado</th>
@@ -72,24 +86,28 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <button type="button" class="btn btn-info btn-rounded" (click)="nuevoProceso()">Nuevo Proceso</button>
-                                </td>
-                                <td colspan="6">
-                                    <div class="text-right">
-                                        <ul class="pagination"> </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
                     </table>
+                    <button type="button" class="btn btn-info btn-rounded" (click)="nuevoProceso()">Nuevo Proceso</button>
+
+                    <div align="right">
+                        <span tooltip="Anterior" placement="top">
+                            <button class="btn btn-secondary">
+                                <i class="fa fa-backward"></i>
+                            </button>
+                        </span> &nbsp;
+
+                        <span tooltip="Siguiente" placement="top">
+                            <button class="btn btn-secondary">
+                                <i class="fa fa-forward"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="nuevoProceso animated bounceInDown" *ngIf="nuevo">
     <div class="modal-dialog">
@@ -162,11 +180,3 @@
 <!-- ============================================================== -->
 <!-- End PAge Content -->
 <!-- ============================================================== -->
-<div id="preloader_1" *ngIf="loader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <p class="texto-cargando"><strong>Cargando...</strong></p>
-</div>

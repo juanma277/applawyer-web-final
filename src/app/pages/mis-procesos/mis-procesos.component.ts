@@ -15,13 +15,12 @@ export class MisProcesosComponent implements OnInit {
 
   nuevo:boolean = false;
   loadingJuzgado:boolean = false;
-  contenido: string ="";
   forma: FormGroup;
   tipos = [];
   juzgados = [];
   ciudades = [];
   proceso: Proceso = {};
-  loader: boolean = false;
+  cargando:boolean = true;
   URL_DOWNLOAD_EXCEL:string;
   URL_DOWNLOAD_PDF:string; 
 
@@ -29,25 +28,22 @@ export class MisProcesosComponent implements OnInit {
 
   constructor(public procesoService: ProcesoService, public usuarioService: UsuarioService, public tipoProcesoService: TipoProcesoService, public juzgadoService: JuzgadoService, public ciudadService: CiudadService) 
    {
-     this.contenido ="loading";
-     this.loader =true;
-     this.tipoProcesoService.cargarTiposActivos().subscribe((resp:any)=>{
+    this.cargando = true; 
+    this.tipoProcesoService.cargarTiposActivos().subscribe((resp:any)=>{
       if(resp.error){
         swal({
           type: 'warning',
           title: 'Advertencia',
           text: 'No  existen tipos de procesos!'
         });
-          this.contenido = "";
-          this.loader =false;
+          this.cargando =false;
 
         return;
       }else{
         for(let i=0; i<resp.types.length ; i++){
           this.tipos.push(resp.types[i]);
         }
-        this.contenido = "";
-        this.loader =false;
+        this.cargando =false;
       }
      });
 
@@ -111,12 +107,10 @@ export class MisProcesosComponent implements OnInit {
 
   nuevoProceso(){
     this.nuevo = true;
-    this.contenido = "loading";
   }
 
   cerrarModal(){
     this.nuevo = false;
-    this.contenido = "";
 
   }
 
@@ -132,12 +126,10 @@ export class MisProcesosComponent implements OnInit {
       confirmButtonText: 'Aceptar'
     }).then((result) => {
       if (result.value) {
-        this.contenido = "loading";
-        this.loader = true;
+        this.cargando = true;
         this.procesoService.eliminarProceso(proceso_id, this.usuarioService.usuario.id).subscribe((resp:any)=>{
             this.procesoService.cargarProcesos(this.usuarioService.usuario.id).subscribe((resp:any)=>{
-              this.contenido = "";
-              this.loader = false;
+              this.cargando = false;
             });
         });
       }
@@ -145,8 +137,7 @@ export class MisProcesosComponent implements OnInit {
   }
 
   crearProceso(){
-    this.loader = true;
-    this.contenido = "loading";
+    this.cargando = true;
 
     if(this.forma.invalid){
       swal({
@@ -172,7 +163,7 @@ export class MisProcesosComponent implements OnInit {
           title: 'Error',
           text: 'Existe información duplicada o faltan datos!'
         });
-        this.loader = false;
+        this.cargando = false;
         return;
       }else{
         swal({
@@ -180,9 +171,8 @@ export class MisProcesosComponent implements OnInit {
           title: 'Correcto',
           text: 'Proceso Creado!'
         });
-        this.loader = false;
+        this.cargando = false;
         this.nuevo = false;
-        this.contenido = "";
         this.proceso  = {};
         this.forma.setValue({
           ciudad: '',
@@ -202,7 +192,7 @@ export class MisProcesosComponent implements OnInit {
           title: 'Error',
           text: 'Lo sentimos ha ocurrido un error, por favor intentalo nuevamente.'
         });
-        this.loader = false;        
+        this.cargando = false;        
         return;
     });
   }

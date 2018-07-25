@@ -20,7 +20,7 @@ import { CiudadesComponent } from './ciudades/ciudades.component';
 import { JuzgadosComponent } from './juzgados/juzgados.component';
 import { ProcesosComponent } from './procesos/procesos.component';
 import { ConfigNotificacionesComponent } from './config-notificaciones/config-notificaciones.component';
-
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 //SWEETALERT2
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
@@ -58,6 +58,7 @@ import { ChartsModule } from 'ng2-charts';
         JuzgadosComponent,
         ProcesosComponent,
         ConfigNotificacionesComponent,
+        ModalUploadComponent
     ],
     exports: [
         DashboardComponent,

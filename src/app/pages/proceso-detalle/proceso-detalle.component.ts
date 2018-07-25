@@ -198,7 +198,8 @@ export class ProcesoDetalleComponent implements OnInit {
           title: 'Correcto',
           text: 'Alarma creada!'
         });
-        this.loader = false;        
+        this.loader = false;   
+        this.nAlerta = false;     
         this.alerta  = {};
         this.forma.setValue({
           descricpion1: null,
@@ -253,7 +254,9 @@ export class ProcesoDetalleComponent implements OnInit {
           title: 'Correcto',
           text: 'Adjunto creado!'
         });
-        this.loader = false;        
+        this.loader = false;   
+        this.imagenTemporal = '';
+        this.nAdjunto = false;     
         this.adjunto  = {};
         this.forma2.setValue({
           imagen: null,
@@ -419,6 +422,15 @@ export class ProcesoDetalleComponent implements OnInit {
           value: reader.result.split(',')[1]
         })
       };
+    }
+  }
+
+  modalImagen(){
+    let selectores:any = document.getElementsByClassName('modal-container');
+    for(let ref of selectores){
+      ref.classList.add('active');
+      ref.stopPropagation();
+      break;  
     }
   }
 

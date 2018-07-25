@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input type="text" class="form-control" placeholder="Buscar Usuario">
+                <input #input (keyup)="bsucarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar Usuario">
 
             </div>
         </div>
@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="row">
+<div class="row" *ngIf="cargando">
     <div class="col-sm-12">
         <div class="alert alert-warning text-center">
             <strong>Cargando</strong>
@@ -24,12 +24,12 @@
 </div>
 
 
-<div class="row">
+<div class="row" *ngIf="!cargando">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
-                <h3 class="card-title">Usuarios Registrados (<small>158</small>)</h3>
+                <h3 class="card-title">Usuarios Registrados (<small>{{totalRegistros}}</small>)</h3>
 
                 <div class="table-responsive">
                     <table class="table full-color-table full-muted-table hover-table">
@@ -40,8 +40,6 @@
                                 <th>Nombre</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
-                                <th>Descripción</th>
-                                <th>Profesión</th>
                                 <th>Notificaciones</th>
                                 <th>Terminos</th>
                                 <th>Role</th>
@@ -51,27 +49,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Hola</td>
-                                <td>Nigam</td>
-                                <td>Eichmann</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
-                                <td>@Sonu</td>
+                            <tr *ngFor="let usuario of usuarios">
+                                <td class="w70"><img (click)="mostrarModal(usuario.id)" [src]="usuario.imagen | imagenUser" class="img50 img-circle pointer"></td>
+                                <td><input [(ngModel)]="usuario.email" type="email" name="email" class="form-control form-control-line"></td>
+                                <td><input [(ngModel)]="usuario.nombre" type="text" name="nombre" class="form-control form-control-line"></td>
+                                <td><input [(ngModel)]="usuario.direccion" type="text" name="direccion" class="form-control form-control-line"></td>
+                                <td><input [(ngModel)]="usuario.telefono" type="number" name="telefono" class="form-control form-control-line"></td>
+                                <td align="center">
+                                    <div class="switch">
+                                        <label><input [(ngModel)]="usuario.notificaciones" name="notificaciones" type="checkbox"><span class="lever switch-col-teal"></span></label>
+                                    </div>
+                                </td>
+                                <td align="center">
+                                    <div class="switch">
+                                        <label><input [(ngModel)]="usuario.terminos" name="terminos" type="checkbox"><span class="lever switch-col-teal"></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="usuario.role" name="role" class="form-control">
+                                        <option value="ADMIN_ROLE">Administrador</option>
+                                        <option value="USER_ROLE">Usuario</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select [(ngModel)]="usuario.estado" name="estado" class="form-control">
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <span tooltip="Guardar" placement="top">
-                                      <button class="btn btn-success">
+                                      <button class="btn btn-success" (click)="guardarUsuario(usuario)">
                                         <i class="fa fa-save"></i>
                                       </button>
                                     </span> &nbsp;
 
                                     <span tooltip="Eliminar" placement="top">
-                                        <button class="btn btn-danger">
+                                        <button class="btn btn-danger" (click)="borrarUsuario(usuario)">
                                           <i class="fa fa-trash-o"></i>
                                         </button>
                                     </span>
@@ -85,20 +100,16 @@
                     </table>
 
                     <span tooltip="Anterior" placement="top">
-                      <button class="btn btn-secondary">
+                      <button (click)="cambiarDesde(-10)" class="btn btn-secondary">
                         <i class="fa fa-backward"></i>
                       </button>
                     </span> &nbsp;
 
                     <span tooltip="Siguiente" placement="top">
-                        <button class="btn btn-secondary">
+                        <button (click)="cambiarDesde(10)" class="btn btn-secondary">
                             <i class="fa fa-forward"></i>
                         </button>
                     </span>
-
-
-
-
 
                 </div>
             </div>

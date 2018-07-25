@@ -31,8 +31,7 @@ export class ProfileComponent implements OnInit {
     this.usuario = this.usuarioService.usuario;
     this.procesoService.cargarProcesos(this.usuario.id).subscribe();
     this.procesoService.procesosPorEstado(this.usuario.id).subscribe();
-    this.procesoService.procesosPorUsuario(this.usuario.id).subscribe();    
-
+    this.procesoService.procesosPorUsuario(this.usuario.id).subscribe();
   }
 
  
@@ -107,10 +106,10 @@ export class ProfileComponent implements OnInit {
       this.forma.value.profesion,
       null,
       null,
-      null,
-      null,
+      this.usuario.role,
+      this.usuario.estado,      
       this.forma.value.notificaciones,
-      null,
+      this.usuario.terminos,            
       this.usuario.id
     );
 
