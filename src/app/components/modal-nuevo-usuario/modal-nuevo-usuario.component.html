@@ -1,0 +1,69 @@
+<div class="fondo-negro animated bounceInDown" [ngClass]="modalNuevoUsuarioService.oculto">
+    <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Proceso</h5>
+                    <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body">
+                    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="crearProceso()" class="form-horizontal form-material">
+                        <div class="form-group">
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="ciudad">Ciudad</label>
+                                <select formControlName="ciudad" name="ciudad" class="form-control" id="ciudad" (change)="obtenerJuzgado($event.target.value)" required>
+                                    <option value="">Selecciona</option>
+                                    <option *ngFor="let ciudad of ciudades" value="{{ciudad.id}}">{{ciudad.nombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="juzgado">Juzgado</label>
+                                <select formControlName="juzgado" name="juzgado" class="form-control" id="juzgado" required>
+                                    <option value="">Selecciona</option>
+                                    <option *ngFor="let juzgado of juzgados" value="{{juzgado.id}}">{{juzgado.nombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="tipo">Tipo Proceso</label>
+                                <select formControlName="tipo" name="tipo" class="form-control" id="tipo" required>
+                                    <option value="">Selecciona</option>
+                                    <option *ngFor="let tipo of tipos" value="{{tipo.id}}">{{tipo.nombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="demandante">Demandante</label>
+                                <input formControlName="demandante" name="demandante" type="text" class="form-control" id="demandante" required>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="demandado">Demandado</label>
+                                <input formControlName="demandado" name="demandado" type="text" class="form-control" id="demandado" required>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="radicado">Radicado</label>
+                                <input formControlName="radicado" name="radicado" type="text" class="form-control" id="radicado" required>
+                            </div>
+
+                            <div class="col-md-12 m-b-20">
+                                <label for="fecha">Fecha</label>
+                                <input formControlName="fecha" name="fecha" class="form-control" type="date" id="fecha" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

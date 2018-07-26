@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   contenido: string ="";
   loader: boolean = false;
   imagenTemporal: string;
+  totalProcesos:number = 0;
+  estadosProcesos:any[] = [];
 
   // Doughnut
   doughnutChartLabels:string[] = [];
@@ -29,16 +31,15 @@ export class ProfileComponent implements OnInit {
   constructor(public usuarioService: UsuarioService, public procesoService: ProcesoService) 
   {
     this.usuario = this.usuarioService.usuario;
-    this.procesoService.cargarProcesos(this.usuario.id).subscribe();
-    this.procesoService.procesosPorEstado(this.usuario.id).subscribe();
-    this.procesoService.procesosPorUsuario(this.usuario.id).subscribe();
+    this.procesoService.cargarProcesosPaginados(this.usuario.id, 0).subscribe((resp:any)=>{
+      this.totalProcesos = resp.cuenta;
+      this.estadosProcesos = resp.estados;
+    });
   }
 
  
   ngOnInit() {
-
-    this.cargarGraficaPie();
-    
+   
     this.token = this.usuarioService.token;
     this.forma = new FormGroup({
       nombre: new FormControl(this.usuario.nombre, Validators.required),
@@ -226,10 +227,4 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  cargarGraficaPie(){
-    for(let y=0; y< this.procesoService.procesos.length; y++){
-      this.doughnutChartData.push(this.procesoService.procesos[y].cantidad);
-      this.doughnutChartLabels.push(this.procesoService.procesos[y].estado);
-    }
-  }
 }

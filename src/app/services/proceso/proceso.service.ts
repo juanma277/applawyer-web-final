@@ -13,18 +13,18 @@ const swal: SweetAlert = _swal as any;
 })
 export class ProcesoService {
 
-  procesos = [];
+  procesos: Proceso[] = [];
   estadoProcesos = [];
   cantidadProcesos:number = 0; 
   procesosUser = [];
   
   constructor(public http: HttpClient) {}
    
-  cargarProcesos(user_id:string){
+  cargarProcesos(user_id:string, desde:number = 0){
     this.procesos = [];
     this.estadoProcesos = [];
     this.cantidadProcesos = 0;
-    let url = URL_SERVICIOS + '/processes/getProcessesUser/'+user_id;
+    let url = URL_SERVICIOS + '/processes/getProcessesUser/'+user_id+'/'+desde;
     return this.http.get(url).pipe(map((resp:any)=>{
       if(resp.error){
         swal("Advertencia", "No tienes registrados procesos!", "warning");
@@ -43,10 +43,18 @@ export class ProcesoService {
       swal("Advertencia", "Ha ocurrido un error por favor intentalo nuevamente!", "warning");
     }));
   }
+
+  cargarProcesosPaginados(user_id:string, desde: number = 0){
+    let url = URL_SERVICIOS + '/processes/getProcessesUser/'+user_id+'/'+desde;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      this.cantidadProcesos = resp.cuenta;
+      return resp;
+    }));  
+  }
   
   procesosPorUsuario(user_id){
     this.procesosUser = [];
-    let url = URL_SERVICIOS +'/processes/getProcessesUser/'+user_id;
+    let url = URL_SERVICIOS +'/processes/getProcessesUser/'+user_id+'/'+0;
     return this.http.get(url).pipe(map((resp:any)=>{
       this.procesosUser = resp.process;
       return resp;
@@ -55,7 +63,16 @@ export class ProcesoService {
 
   crearProceso(proceso:Proceso){
     let url = URL_SERVICIOS + '/processes/create';
-    return this.http.post(url, {'tipo_proceso': proceso.tipo_proceso_id, 'user':proceso.user_id, 'juzgado': proceso.juzgado_id, 'demandante':proceso.demandante, 'demandado':proceso.demandado, 'radicado':proceso.radicado, 'fecha':proceso.fecha});
+    return this.http.post(url, {'tipo_proceso': proceso.tipo, 'user':proceso.user, 'juzgado': proceso.juzgado, 'demandante':proceso.demandante, 'demandado':proceso.demandado, 'radicado':proceso.radicado, 'fecha':proceso.fecha});
+  }
+
+  buscarProcesos(termino:string, id:string){
+    let url = URL_SERVICIOS + '/processes/searchProcesos/'+termino+'/'+id;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      this.procesos = [];
+      this.procesos = resp.procesos
+      return resp;    
+    }));    
   }
 
   modificarEstado(proceso_id:string, estado:string){

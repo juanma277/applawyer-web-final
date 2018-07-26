@@ -4,6 +4,7 @@ import { UsuarioService } from '../../services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 import swal from 'sweetalert2';
+import { ModalNuevoProcesoService } from '../../components/modal-nuevo-proceso/modal-nuevo-proceso.service';
 
 
 @Component({
@@ -18,12 +19,15 @@ export class UsuariosComponent implements OnInit {
   totalRegistros:number = 0;
   cargando:boolean = true;
 
-  constructor(public usuarioService: UsuarioService, public modalUploadService: ModalUploadService) { }
+  constructor(public usuarioService: UsuarioService, public modalUploadService: ModalUploadService, public modalNuevoProcesoService: ModalNuevoProcesoService) { }
 
   ngOnInit() {
     this.cargarUsuarios();
     this.modalUploadService.notificacion.subscribe(resp =>{
-      this.cargarUsuarios();      
+      this.cargarUsuarios();    
+    });
+    this.modalNuevoProcesoService.notificacion.subscribe(resp =>{
+      this.cargarUsuarios();
     });
   }
 
@@ -34,6 +38,10 @@ export class UsuariosComponent implements OnInit {
       this.usuarios = resp.usuarios;
       this.cargando = false;
     });
+  }
+
+  nuevoUsuario(){
+    this.modalNuevoProcesoService.mostrarModal(this.usuarioService.usuario.id);
   }
 
   cambiarDesde(valor:number){
@@ -84,7 +92,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   mostrarModal(id:string){
-    this.modalUploadService.mostrarModal(id);    
+    this.modalUploadService.mostrarModal(id);   
   }
 
   borrarUsuario(usuario:Usuario){

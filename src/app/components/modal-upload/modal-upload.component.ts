@@ -31,7 +31,9 @@ export class ModalUploadComponent implements OnInit {
         swal({
           type: 'error',
           title: 'Error',
-          text: 'El archivo seleccionado no es una imagen!'
+          text: 'El archivo seleccionado no es una imagen!',
+          showConfirmButton: false,
+          timer: 1500
         });
         return;
       }

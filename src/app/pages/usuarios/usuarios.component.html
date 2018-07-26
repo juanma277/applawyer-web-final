@@ -1,3 +1,15 @@
+<div class="col-md-12" align="right">
+    <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+        <span tooltip="Nuevo Usuario" placement="top"><button type="button" (click)="nuevoUsuario()" target="_blank" class="btn btn-secondary font-18">Añadir Usuario</button></span>&nbsp;
+    </div>
+
+    <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown" *ngIf="totalRegistros > 0">
+        <span tooltip="Excel" placement="top"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="18px" /></a></span>&nbsp;
+        <span tooltip="PDF" placement="top"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="18px" /></a></span>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-12">
         <div class="card">

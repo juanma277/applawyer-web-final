@@ -63,7 +63,7 @@
                     <span *ngIf="!usuario.descripcion" class="badge badge-pill badge-info">Dirigete a Datos para ingresar una descripción de Perfil. </span>
 
                     <h4 class="font-medium m-t-30">Procesos:
-                        <strong *ngIf="procesoService.procesosUser">{{procesoService.procesosUser.length}}</strong>
+                        <strong *ngIf="procesoService.procesosUser">{{totalProcesos}}</strong>
                     </h4>
                     <hr>
                     <div class="card-body">
@@ -79,11 +79,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let estado of procesoService.estadoProcesos; let i = index">
+                                    <tr *ngFor="let estado of estadosProcesos; let i = index">
                                         <td>{{i+1}}</td>
                                         <td>{{estado.estado}}</td>
                                         <td>{{estado.cantidad}}</td>
-                                        <td>{{estado.cantidad / procesoService.procesosUser.length | percent }}</td>
+                                        <td>{{estado.cantidad / totalProcesos | percent }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="col-md-12">Teléfono</label>
                             <div class="col-md-12">
-                                <input formControlName="telefono" name="telefono" type="text" required class="form-control form-control-line">
+                                <input formControlName="telefono" name="telefono" type="number" required class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">

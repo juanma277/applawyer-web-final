@@ -21,6 +21,14 @@ import { JuzgadosComponent } from './juzgados/juzgados.component';
 import { ProcesosComponent } from './procesos/procesos.component';
 import { ConfigNotificacionesComponent } from './config-notificaciones/config-notificaciones.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { ModalNuevoUsuarioComponent } from '../components/modal-nuevo-usuario/modal-nuevo-usuario.component';
+import { ModalNuevoProcesoComponent } from '../components/modal-nuevo-proceso/modal-nuevo-proceso.component';
+import { ModalNuevoTipoComponent } from '../components/modal-nuevo-tipo/modal-nuevo-tipo.component';
+import { ModalNuevoCiudadComponent } from '../components/modal-nuevo-ciudad/modal-nuevo-ciudad.component';
+import { ModalNuevoJuzgadoComponent } from '../components/modal-nuevo-juzgado/modal-nuevo-juzgado.component';
+import { ModalNuevoProcesoAdminComponent } from '../components/modal-nuevo-proceso-admin/modal-nuevo-proceso-admin.component';
+import { ModalNuevoNotificacionComponent } from '../components/modal-nuevo-notificacion/modal-nuevo-notificacion.component';
+
 
 //SWEETALERT2
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
@@ -36,6 +44,7 @@ import { PAGES_ROUTES } from './pages.routes';
 
 //NGCHARTS.JS
 import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -58,7 +67,14 @@ import { ChartsModule } from 'ng2-charts';
         JuzgadosComponent,
         ProcesosComponent,
         ConfigNotificacionesComponent,
-        ModalUploadComponent
+        ModalUploadComponent,
+        ModalNuevoUsuarioComponent,
+        ModalNuevoProcesoComponent,
+        ModalNuevoTipoComponent,
+        ModalNuevoCiudadComponent,
+        ModalNuevoJuzgadoComponent,
+        ModalNuevoProcesoAdminComponent,
+        ModalNuevoNotificacionComponent
     ],
     exports: [
         DashboardComponent,
