@@ -3,8 +3,10 @@ import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
-import swal from 'sweetalert2';
 import { ModalNuevoProcesoService } from '../../components/modal-nuevo-proceso/modal-nuevo-proceso.service';
+import { URL_SERVICIOS } from '../../config/config';
+
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -18,11 +20,16 @@ export class UsuariosComponent implements OnInit {
   desde:number = 0;
   totalRegistros:number = 0;
   cargando:boolean = true;
+  URL_DOWNLOAD_EXCEL:string;
+  URL_DOWNLOAD_PDF:string;
 
   constructor(public usuarioService: UsuarioService, public modalUploadService: ModalUploadService, public modalNuevoProcesoService: ModalNuevoProcesoService) { }
 
   ngOnInit() {
     this.cargarUsuarios();
+    this.URL_DOWNLOAD_PDF = URL_SERVICIOS+'/download/PDF/usuarios';
+    this.URL_DOWNLOAD_EXCEL = URL_SERVICIOS+'/download/XLS/usuarios';
+
     this.modalUploadService.notificacion.subscribe(resp =>{
       this.cargarUsuarios();    
     });
