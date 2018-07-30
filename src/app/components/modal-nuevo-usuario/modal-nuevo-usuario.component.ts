@@ -29,7 +29,10 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         swal({
           type: 'warning',
           title: 'Advertencia',
-          text: 'No  existen tipos de procesos!'
+          text: 'No  existen tipos de procesos!',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500
         });
 
         return;
@@ -45,7 +48,10 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         swal({
           type: 'warning',
           title: 'Advertencia',
-          text: 'No  existen tipos de Ciudades!'
+          text: 'No  existen tipos de Ciudades!',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500
         });
         return;
       }else{
@@ -79,7 +85,10 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         swal({
           type: 'warning',
           title: 'Advertencia',
-          text: 'No  existen Juzgados!'
+          text: 'No  existen Juzgados!',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500
         });        
         return;
       }else{
@@ -96,7 +105,10 @@ export class ModalNuevoUsuarioComponent implements OnInit {
       swal({
         type: 'error',
         title: 'Error',
-        text: 'Existen campos obligatorios sin llenar!'
+        text: 'Existen campos obligatorios sin llenar!',
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500
       }); 
       return;
     }
@@ -114,7 +126,10 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         swal({
           type: 'error',
           title: 'Error',
-          text: 'Existe información duplicada o faltan datos!'
+          text: 'Existe información duplicada o faltan datos!',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500
         });
         return;
       }else{

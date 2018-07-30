@@ -18,6 +18,7 @@ export class ProcesoService {
   cantidadProcesos:number = 0; 
   procesosUser = [];
   
+  
   constructor(public http: HttpClient) {}
    
   cargarProcesos(user_id:string, desde:number = 0){
@@ -44,12 +45,24 @@ export class ProcesoService {
     }));
   }
 
+  cargarProcesosAdmin(desde: number = 0){
+    let url = URL_SERVICIOS + '/processes/paginate/'+desde;
+    return this.http.get(url);  
+  }
+
   cargarProcesosPaginados(user_id:string, desde: number = 0){
     let url = URL_SERVICIOS + '/processes/getProcessesUser/'+user_id+'/'+desde;
     return this.http.get(url).pipe(map((resp:any)=>{
       this.cantidadProcesos = resp.cuenta;
       return resp;
     }));  
+  }
+
+  buscarProceso(termino:string){
+    let url = URL_SERVICIOS + '/processes/searchProccess/'+termino;
+    return this.http.get(url).pipe(map((resp:any)=>{
+      return resp.procesos;      
+    }));
   }
   
   procesosPorUsuario(user_id){
@@ -94,6 +107,23 @@ export class ProcesoService {
     }));
   }
 
+  actualizarProceso(proceso:Proceso, token:string){
+    const url = URL_SERVICIOS + '/processes/update/'+proceso.id;
+    return this.http.put(url, { 'tipo_proceso':proceso.tipo, 'juzgado':proceso.juzgado, 'demandante': proceso.demandante, 'demandado': proceso.demandado, 'radicado': proceso.radicado, 'fecha': proceso.fecha, 'estado': proceso.estado, 'token': token })
+                    .pipe(map((resp:any)=>{
+                      if(resp.error){
+                        swal("Error!", "Faltan datos requeridos o se encuentran duplicados", "error");
+                        return false;                  
+                      }
+                        swal("Correcto!", "Proceso Actualizado", "success");
+                        return true;
+                  
+                    }, error =>{
+                      swal("Error!", "Ha ocurrido un error, por favor intentalo nuevamente!", "error");
+                      return;                              
+                    }));
+  }
+
   eliminarProceso(proceso_id:string, user_id:string){
     this.procesos = [];
     this.cantidadProcesos = 0;
@@ -106,7 +136,12 @@ export class ProcesoService {
     }));
   }
 
-  
+  borrarProceso(proceso_id:string){
+    let url = URL_SERVICIOS + '/processes/deleteAdmin/'+proceso_id;
+    return this.http.delete(url);
+
+  }
+
   //GRAFICAS
   procesosPorJuzgado(user_id:string){
     let url = URL_SERVICIOS +'/processes/porJuzgado/'+user_id;

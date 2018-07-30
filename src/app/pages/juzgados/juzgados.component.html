@@ -1,3 +1,111 @@
-<p>
-  juzgados works!
-</p>
+<div class="col-md-12" align="right">
+    <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+        <span tooltip="Nuevo Juzgado" placement="top"><button type="button" (click)="nuevoJuzgado()" target="_blank" class="btn btn-secondary font-18">Añadir Juzgado</button></span>&nbsp;
+    </div>
+
+    <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown" *ngIf="totalRegistros > 0">
+        <span tooltip="Excel" placement="top"><a [href]="URL_DOWNLOAD_EXCEL" target="_blank" class="btn btn-secondary font-18"><img src="assets/images/icon/icon-excel.png" width="18px" /></a></span>&nbsp;
+        <span tooltip="PDF" placement="top"><a [href]="URL_DOWNLOAD_PDF" target="_blank"  class="btn btn-secondary font-18"><img src="assets/images/icon/icon-pdf.png" width="18px" /></a></span>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarJuzgado(input.value)" type="text" class="form-control" placeholder="Buscar Juzgado">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor ...</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h3 class="card-title">Juzgados Registrados (<small>{{totalRegistros}}</small>)</h3>
+
+                <div class="table-responsive">
+                    <table class="table full-color-table full-muted-table hover-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Abreviatura</th>
+                                <th>Ciudad</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let juzgado of juzgados">
+                                <td><input [(ngModel)]="juzgado.nombre" type="text" name="nombre" class="form-control form-control-line"></td>
+                                <td><input [(ngModel)]="juzgado.abreviatura" type="text" name="abreviatura" class="form-control form-control-line"></td>
+
+                                <td>
+                                    <select [(ngModel)]="juzgado.ciudad_id" name="ciudad_id" class="form-control">
+                                        <option *ngFor="let ciudad of ciudades" value="{{ciudad.id}}">{{ciudad.nombre}}</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select [(ngModel)]="juzgado.estado" name="estado" class="form-control">
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <span tooltip="Guardar" placement="top">
+                                <button class="btn btn-success" (click)="guardarJuzgado(juzgado)">
+                                  <i class="fa fa-save"></i>
+                                </button>
+                              </span> &nbsp;
+
+                                    <span tooltip="Eliminar" placement="top">
+                                  <button class="btn btn-danger" (click)="borrarJuzgado(juzgado)">
+                                    <i class="fa fa-trash-o"></i>
+                                  </button>
+                              </span>
+
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <span tooltip="Anterior" placement="top">
+                <button (click)="cambiarDesde(-10)" class="btn btn-secondary">
+                  <i class="fa fa-backward"></i>
+                </button>
+              </span> &nbsp;
+
+                    <span tooltip="Siguiente" placement="top">
+                  <button (click)="cambiarDesde(10)" class="btn btn-secondary">
+                      <i class="fa fa-forward"></i>
+                  </button>
+              </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

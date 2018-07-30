@@ -10,6 +10,43 @@
                 </div>
                 <div class="modal-body">
 
+                    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarJuzgado()" class="form-horizontal form-material">
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                            </div>
+                        </div>
+
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <input formControlName="abreviatura" name="abreviatura" class="form-control" type="text" required placeholder="Abreviatura">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="ciudad">Ciudad</label>
+                                <select formControlName="ciudad" name="ciudad" class="form-control">
+                                    <option *ngFor="let ciudad of ciudades" value="{{ciudad.id}}">{{ciudad.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="estado">Estado</label>
+                                <select formControlName="estado" name="estado" class="form-control">
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cancelar</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>

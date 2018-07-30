@@ -20,7 +20,7 @@ export class ModalNuevoTipoComponent implements OnInit {
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       abreviatura : new FormControl(null, Validators.required),
-      estado: new FormControl(null, Validators.required),
+      estado: new FormControl(null, Validators.required)
     });
   }
 

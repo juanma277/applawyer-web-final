@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/service.index';
-import { ModalNuevoProcesoService } from './modal-nuevo-proceso.service';
 import { Usuario } from '../../models/usuario.model';
+import { ModalNuevoProcesoService } from './modal-nuevo-proceso.service';
 
 @Component({
   selector: 'app-modal-nuevo-proceso',

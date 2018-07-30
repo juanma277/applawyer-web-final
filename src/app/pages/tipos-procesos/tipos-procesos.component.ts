@@ -6,8 +6,6 @@ import { URL_SERVICIOS } from '../../config/config';
 
 import swal from 'sweetalert2';
 
-
-
 @Component({
   selector: 'app-tipos-procesos',
   templateUrl: './tipos-procesos.component.html',
@@ -37,7 +35,7 @@ export class TiposProcesosComponent implements OnInit {
   cargarTipos(){
     this.cargando = true;
     this.tipoProcesoService.cargarTipos(this.desde).subscribe((resp:any)=>{
-      this.totalRegistros = resp.cuenta;
+      this.totalRegistros = resp.total;
       this.tipos = resp.types;
       this.cargando = false;
     });
@@ -77,6 +75,8 @@ export class TiposProcesosComponent implements OnInit {
   }
 
   buscarTipo(termino:string){
+    termino = termino.trim();
+
     if(termino.length <= 0){
       this.cargarTipos();
       return;

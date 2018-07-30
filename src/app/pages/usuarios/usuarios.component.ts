@@ -81,6 +81,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   bsucarUsuario(termino:string){
+    termino = termino.trim();
+
     if(termino.length <= 0){
       this.cargarUsuarios();
       return;

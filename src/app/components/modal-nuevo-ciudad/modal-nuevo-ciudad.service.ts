@@ -17,8 +17,7 @@ export class ModalNuevoCiudadService {
     this.id= null;
   }
 
-  mostrarModal(id:string){
+  mostrarModal(){
     this.oculto = '';
-    this.id = id;
   }
 }

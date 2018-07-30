@@ -9,6 +9,7 @@ export class Proceso {
         public fecha?:string,
         public estado?:string,
         public id?:string,
-        public historico?:string
+        public historico?:string,
+        public ciudad?:string
     ){ }        
 }

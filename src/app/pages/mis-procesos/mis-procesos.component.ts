@@ -65,6 +65,8 @@ export class MisProcesosComponent implements OnInit {
   }
 
   buscarProceso(termino:string){
+    termino = termino.trim();
+
     if(termino.length <= 0){
       this.cargarProcesos();    
       return;

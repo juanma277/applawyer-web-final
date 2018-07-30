@@ -30,6 +30,11 @@ export class UsuarioService {
     return this.http.get(url);  
   }
 
+  cargarAllUsuarios(){
+    let url = URL_SERVICIOS + '/users/all';
+    return this.http.get(url);    
+  }
+
   buscarUsuario(termino:string){
     let url = URL_SERVICIOS + '/users/searchUser/'+termino;
     return this.http.get(url).pipe(map((resp:any)=>{
