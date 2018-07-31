@@ -44,6 +44,7 @@ import { PAGES_ROUTES } from './pages.routes';
 
 //NGCHARTS.JS
 import { ChartsModule } from 'ng2-charts';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -74,7 +75,8 @@ import { ChartsModule } from 'ng2-charts';
         ModalNuevoCiudadComponent,
         ModalNuevoJuzgadoComponent,
         ModalNuevoProcesoAdminComponent,
-        ModalNuevoNotificacionComponent
+        ModalNuevoNotificacionComponent,
+        BusquedaComponent
     ],
     exports: [
         DashboardComponent,

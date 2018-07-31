@@ -18,6 +18,7 @@ import { CiudadesComponent } from './ciudades/ciudades.component';
 import { JuzgadosComponent } from './juzgados/juzgados.component';
 import { ProcesosComponent } from './procesos/procesos.component';
 import { ConfigNotificacionesComponent } from './config-notificaciones/config-notificaciones.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const pagesRoutes: Routes = [
     {
@@ -36,6 +37,7 @@ const pagesRoutes: Routes = [
             {path: 'porCiudad', component: PorCiudadComponent, data: {titulo: 'Informe Por Ciudad'}},
             {path: 'porEstado', component: PorEstadoComponent, data: {titulo: 'Informe Por Estado'}},
             {path: 'notificaciones', component: NotificacionesComponent, data: {titulo: 'Notificaciones'}},
+            {path: 'busqueda/:termino', component: BusquedaComponent, data: {titulo: 'Buscador'}},
 
             //MANTENIMIENTO
             {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Mantenimiento de Usuarios'}},

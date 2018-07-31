@@ -147,7 +147,6 @@ export class ProcesoDetalleComponent implements OnInit {
   ventanaEditarAdjunto(id:string){
     this.eAdjunto = true;
     this.adjuntoService.cargarDatosAdjunto(id).subscribe((resp:any)=>{
-      console.log(resp);
       if(!resp.error){
         this.imagenAdjunto = resp.adjunto.archivo;
         this.forma4.setValue({

@@ -131,6 +131,7 @@ export class ModalNuevoUsuarioComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.modalNuevoUsuarioService.notificacion.emit(resp);
         return;
       }else{
         swal({
@@ -140,7 +141,7 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         });
         this.proceso  = {};
         this.cerrarModal();
-        this.procesoService.cargarProcesosPaginados(this.usuarioService.usuario.id, 0).subscribe();
+        this.modalNuevoUsuarioService.notificacion.emit(resp);        
         return;
       }
     }, error =>{
@@ -149,6 +150,7 @@ export class ModalNuevoUsuarioComponent implements OnInit {
           title: 'Error',
           text: 'Lo sentimos ha ocurrido un error, por favor intentalo nuevamente.'
         });
+        this.modalNuevoUsuarioService.notificacion.emit(error);
         return;
     });
   }

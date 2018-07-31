@@ -28,6 +28,9 @@ export class MisProcesosComponent implements OnInit {
     this.cargarProcesos();
     this.URL_DOWNLOAD_EXCEL = URL_SERVICIOS+"/download/XLS/procesos/"+this.usuarioService.usuario.id;
     this.URL_DOWNLOAD_PDF = URL_SERVICIOS+"/download/PDF/procesos/"+this.usuarioService.usuario.id;
+    this.modalNuevoUsuarioService.notificacion.subscribe(resp =>{
+      this.cargarProcesos();
+    });
   }
 
   cargarProcesos(){

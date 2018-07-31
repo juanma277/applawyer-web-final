@@ -1,0 +1,48 @@
+<div class="alert alert-danger" *ngIf="cuenta===0">
+    <i class="ti-face-sad"></i> No se encontraron procesos con el termino de busqueda ingresado.
+</div>
+
+
+<div class="alert alert-success" *ngIf="cuenta>0">
+    <i class="ti-face-smile"></i> Se han econtrado {{cuenta}} procesos con el termino de busqueda ingresado.
+</div>
+
+
+<table class="table full-color-table full-muted-table hover-table" *ngIf="cuenta>0">
+    <thead>
+        <tr>
+            <th>Radicado</th>
+            <th>Demandante</th>
+            <th>Demandado</th>
+            <th>Juzgado</th>
+            <th>Tipo</th>
+            <th>Último Estado</th>
+            <th>Fecha</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let proceso of procesos">
+            <tr *ngFor="let proceso of procesos">
+                <td>{{proceso.radicado}}</td>
+                <td>{{proceso.demandante}}</td>
+                <td>{{proceso.demandado}}</td>
+                <td>{{proceso.juzgado}}</td>
+                <td>{{proceso.tipo}}</td>
+                <td *ngIf="proceso.historico">{{proceso.historico | split:"*":0}}
+                    <small class="text-info">[{{proceso.historico | split:"*":2}}]</small>
+                </td>
+                <td *ngIf="!proceso.historico"> - - -</td>
+
+                <td>{{proceso.fecha}}</td>
+
+                <td>
+                    <span tooltip="Detalle" placement="top">
+                          <a class="btn btn-success" [routerLink]="['/proceso/detalle', proceso.id]">
+                              <i class="fa fa-info"></i>
+                          </a>
+                      </span> &nbsp;
+                </td>
+            </tr>
+    </tbody>
+</table>
