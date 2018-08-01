@@ -18,11 +18,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 
+//PLUGINS
+import { AutocompleteModule } from 'ng2-input-autocomplete';
+import { DropdownDirective } from './shared/dropdown.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import { RegisterComponent } from './login/register.component';
     FormsModule,
     ReactiveFormsModule,
     PagesModule,
-    ServiceModule
+    ServiceModule,
+    AutocompleteModule
   ],
   providers: [
   ],

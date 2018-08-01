@@ -1,3 +1,4 @@
+export { NotificacionService } from './notificacion/notificacion.service';
 export { AlertaService } from './alerta/alerta.service';
 export { AdjuntoService } from './adjunto/adjunto.service';
 export { CiudadService } from './ciudad/ciudad.service';

@@ -24,6 +24,7 @@
     "chart.js": "^2.7.2",
     "core-js": "^2.5.4",
     "ng2-charts": "^1.6.0",
+    "ng2-input-autocomplete": "^0.1.0",
     "ng2-tooltip": "0.0.7",
     "ng2-tooltip-directive": "^2.1.4",
     "rxjs": "^6.0.0",

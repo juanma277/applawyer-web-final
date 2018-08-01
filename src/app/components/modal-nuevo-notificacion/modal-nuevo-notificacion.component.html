@@ -10,6 +10,80 @@
                 </div>
                 <div class="modal-body">
 
+                    <div class="animated zoomIn">
+                        <form ngNativeValidate [formGroup]="forma1" class="form-horizontal form-material">
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label for="ciudad">Tipo de Notificación</label>
+                                    <select #select formControlName="tipo" name="tipo" class="form-control" (change)="cambiarFormulario(select.value)">
+                                        <option value="INDIVIDUAL">INDIVIDUAL</option>
+                                        <option value="MASIVO">MASIVO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <form ngNativeValidate [formGroup]="forma2" (ngSubmit)="registrarNotificacion()" class="form-horizontal form-material" *ngIf="formulario === 'INDIVIDUAL'">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input type="hidden" formControlName="id" name="id" required>
+                                <label for="proceso">Usuario</label>
+                                <input #input formControlName="usuario" name="usuario" class="form-control" type="text" required (click)="toogleDropDown()" (keyup)="buscarUsuarios(input.value)">
+
+                                <div class="static-container-dropdown" *ngIf="showDropDown">
+                                    <div>
+                                        <div *ngFor="let usuario of usuarios" class="state" (click)="seleccionUsuario(usuario)">
+                                            {{usuario.nombre}} [{{usuario.email}}]
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <label for="titulo">Titulo</label>
+                                <input formControlName="titulo" name="titulo" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <label for="titulo">Mensaje</label>
+                                <textarea formControlName="mensaje" name="mensaje" class="form-control" type="text" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <form ngNativeValidate [formGroup]="forma3" (ngSubmit)="registrarMasivo()" class="form-horizontal form-material" *ngIf="formulario === 'MASIVO'">
+
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <label for="titulo">Titulo</label>
+                                <input formControlName="titulo" name="titulo" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <label for="titulo">Mensaje</label>
+                                <textarea formControlName="mensaje" name="mensaje" class="form-control" type="text" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cancelar</button>
+                        </div>
+
+                    </form>
 
                 </div>
             </div>

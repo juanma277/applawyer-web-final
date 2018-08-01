@@ -20,6 +20,11 @@ export class ProcesoService {
   
   
   constructor(public http: HttpClient) {}
+
+  cargarTodos(){
+    let url = URL_SERVICIOS + '/processes/all';
+    return this.http.get(url);      
+  }
    
   cargarProcesos(user_id:string, desde:number = 0){
     this.procesos = [];
